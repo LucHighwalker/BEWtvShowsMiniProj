@@ -33,3 +33,12 @@ app.get('/shows/episodes', (req, res) => {
         console.error(error);
     })
 });
+
+app.get('/shows/cast', (req, res) => {
+    //hardcoded id
+    database.getCast("adsf768sd7f8s7dfa6g8").then((cast) => {
+        res.render('cast', { cast: cast });
+    }).catch((error) => {
+        console.error(error);
+    })
+});
