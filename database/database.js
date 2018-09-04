@@ -5,6 +5,7 @@ const shows = [
         title: "Rick and Morty",
         description: "Really dumb and funny",
         rating: "tv-ma",
+        genre: "comedy",
         episodes: [
             "pilot",
             "ricklantis"
@@ -27,6 +28,22 @@ function getShow(showID) {
         }
     }
     return show;
+}
+
+function getShowsByGenre(genre) {
+    return new Promise((resolve, reject) => {
+        var retShows = [];
+        for (var i = 0; i < shows.length; i++) {
+            if (shows[i].genre == genre ) {
+                retShows.push(shows[i]);
+            }
+        }
+        if (retShows.length > 0) {
+            resolve(retShows);
+        } else {
+            reject('no shows');
+        }
+    });
 }
 
 function getCast(showID) {
@@ -58,6 +75,7 @@ function getEpisodes(showID) {
 }
 
 module.exports = {
+    getShowsByGenre: getShowsByGenre,
     getCast: getCast,
     getEpisodes: getEpisodes
 }

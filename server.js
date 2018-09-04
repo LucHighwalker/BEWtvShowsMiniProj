@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 const showRouter = require('./routers/shows');
 
+const database = require('./database/database');
+
 urlEncodedParser = bodyParser.urlencoded({ extended: false });
 
 // App initialization
@@ -25,7 +27,21 @@ app.listen(4200, () => {
     console.log('tv shows is listening on localhost:4200');
 });
 
+
+app.get('/genres/:genre', (req, res) => {
+    var genre = req.params.genre;
+    console.log('the fuck');
+    console.log(genre);
+    database.getShowsByGenre(genre).then((shows) => {
+        res.render('genres', {
+            shows: shows
+        });
+    }).catch((error) => {
+        console.error(error);
+    });
+});
+
 app.use('/shows/:showID', (req, res, next) => {
     req.showID = req.params.showID;
     next();
-} , showRouter);
+}, showRouter);
